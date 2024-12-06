@@ -22,7 +22,15 @@
         },
         {
           "type": "SYMBOL",
-          "name": "command"
+          "name": "font"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "binding"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "mode"
         }
       ]
     },
@@ -59,19 +67,6 @@
       "type": "PATTERN",
       "value": "[^\\s][^\\$][\\w~\\/.*-]*[^\\s\\n]"
     },
-    "command": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "font"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "binding"
-        }
-      ]
-    },
     "binding": {
       "type": "SEQ",
       "members": [
@@ -89,16 +84,11 @@
           ]
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "--release"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "keymap_flags"
+          }
         },
         {
           "type": "SYMBOL",
@@ -134,6 +124,31 @@
     "keymap_trigger": {
       "type": "PATTERN",
       "value": "[a-zA-Z0-9.+]+"
+    },
+    "keymap_flags": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "--release"
+        },
+        {
+          "type": "STRING",
+          "value": "--release"
+        },
+        {
+          "type": "STRING",
+          "value": "--border"
+        },
+        {
+          "type": "STRING",
+          "value": "--whole-window"
+        },
+        {
+          "type": "STRING",
+          "value": "--exclude-titlebar"
+        }
+      ]
     },
     "font": {
       "type": "SEQ",
@@ -180,6 +195,51 @@
       "type": "PATTERN",
       "value": "\\d+(ppt|px)[^\\s\\n]"
     },
+    "mode": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "mode"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "mode_name"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "mode_body"
+        }
+      ]
+    },
+    "mode_name": {
+      "type": "PATTERN",
+      "value": "\"([^\"][^\\n]+)?\""
+    },
+    "mode_body": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "statement"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
     "variable": {
       "type": "TOKEN",
       "content": {
@@ -206,6 +266,10 @@
     "number": {
       "type": "PATTERN",
       "value": "\\d+"
+    },
+    "quoted_string": {
+      "type": "PATTERN",
+      "value": "\"([^\"][^\\n]+)?\""
     },
     "value": {
       "type": "PATTERN",

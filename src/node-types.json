@@ -12,26 +12,11 @@
           "named": true
         },
         {
-          "type": "value",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "command",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "binding",
+          "type": "keymap_flags",
           "named": true
         },
         {
-          "type": "font",
+          "type": "value",
           "named": true
         }
       ]
@@ -95,6 +80,52 @@
     }
   },
   {
+    "type": "keymap_flags",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "mode",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "mode_name",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "mode_body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mode_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -119,7 +150,7 @@
       "required": true,
       "types": [
         {
-          "type": "command",
+          "type": "binding",
           "named": true
         },
         {
@@ -127,14 +158,34 @@
           "named": true
         },
         {
+          "type": "font",
+          "named": true
+        },
+        {
           "type": "include",
+          "named": true
+        },
+        {
+          "type": "mode",
           "named": true
         }
       ]
     }
   },
   {
+    "type": "--border",
+    "named": false
+  },
+  {
+    "type": "--exclude-titlebar",
+    "named": false
+  },
+  {
     "type": "--release",
+    "named": false
+  },
+  {
+    "type": "--whole-window",
     "named": false
   },
   {
@@ -170,6 +221,14 @@
     "named": true
   },
   {
+    "type": "mode",
+    "named": false
+  },
+  {
+    "type": "mode_name",
+    "named": true
+  },
+  {
     "type": "number",
     "named": true
   },
@@ -184,5 +243,13 @@
   {
     "type": "variable",
     "named": true
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
   }
 ]
