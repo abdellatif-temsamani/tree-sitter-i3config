@@ -91,6 +91,10 @@
             {
               "type": "STRING",
               "value": "tiling_drag"
+            },
+            {
+              "type": "STRING",
+              "value": "smart_borders"
             }
           ]
         },
@@ -382,28 +386,23 @@
       }
     },
     "value_item": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "arg"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "flag"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "variable"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "quoted_string"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "arg"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "flag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "variable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "quoted_string"
         }
       ]
     },
@@ -422,13 +421,13 @@
         "name": "reference",
         "content": {
           "type": "PATTERN",
-          "value": "\\$[a-zA-Z0-9_]+"
+          "value": "\\$[a-zA-Z0-9_]+[^\\n\\s]"
         }
       }
     },
     "quoted_string": {
       "type": "PATTERN",
-      "value": "\"([^\"][^\\n]+)?\""
+      "value": "\"([^\"][^\\n]+)[^\\n\\s]?\""
     },
     "resource": {
       "type": "PATTERN",

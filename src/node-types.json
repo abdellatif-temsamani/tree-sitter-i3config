@@ -517,6 +517,10 @@
     "named": false
   },
   {
+    "type": "smart_borders",
+    "named": false
+  },
+  {
     "type": "tiling_drag",
     "named": false
   },
