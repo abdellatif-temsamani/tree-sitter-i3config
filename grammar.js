@@ -79,7 +79,11 @@ module.exports = grammar({
     title_condition: ($) => seq("[title=", $.quoted_string, "]"),
 
     // value
-    value: () => /[^\s][^\n]+/,
+    // value: () => /[^\s][^\n]+/,
+    value: ($) => repeat1($.value_item),
+
+    value_item: ($) =>
+      seq(choice($.arg, $.flag, $.variable, $.quoted_string)),
     arg: () => /[^\s"][^-][^-][^\n\s]*/,
     flag: () => /--[^\s"][^\n\s]*/,
     variable: () => token(field("reference", /\$[a-zA-Z0-9_]+/)),

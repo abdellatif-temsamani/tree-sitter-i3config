@@ -375,8 +375,37 @@
       ]
     },
     "value": {
-      "type": "PATTERN",
-      "value": "[^\\s][^\\n]+"
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "value_item"
+      }
+    },
+    "value_item": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "arg"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "flag"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "variable"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "quoted_string"
+            }
+          ]
+        }
+      ]
     },
     "arg": {
       "type": "PATTERN",
