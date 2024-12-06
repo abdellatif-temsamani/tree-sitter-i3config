@@ -1,0 +1,36 @@
+{
+  "grammars": [
+    {
+      "name": "i3config",
+      "camelcase": "I3Config",
+      "scope": "source.i3config",
+      "file-types": [
+        ".i3config"
+      ],
+      "injection-regex": "^i3config$"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "parser for i3wm parser",
+    "authors": [
+      {
+        "name": "abdellatif-temsamani",
+        "email": "contact@abdellatif.dev",
+        "url": "https://abdellatif.dev/"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/abdellatif-temsamani/i3-lsp"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true
+  }
+}
