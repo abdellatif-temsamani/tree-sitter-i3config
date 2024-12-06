@@ -3,7 +3,7 @@
   "name": "i3config",
   "rules": {
     "source_file": {
-      "type": "REPEAT1",
+      "type": "REPEAT",
       "content": {
         "type": "SYMBOL",
         "name": "statement"
@@ -15,6 +15,14 @@
         {
           "type": "SYMBOL",
           "name": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "include"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "command"
         }
       ]
     },
@@ -33,6 +41,175 @@
           }
         ]
       }
+    },
+    "include": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "include"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "include_source"
+        }
+      ]
+    },
+    "include_source": {
+      "type": "PATTERN",
+      "value": "[^\\s][^\\$][\\w~\\/.*-]*[^\\s\\n]"
+    },
+    "command": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "font"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "binding"
+        }
+      ]
+    },
+    "binding": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "bindsym"
+            },
+            {
+              "type": "STRING",
+              "value": "bindcode"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "--release"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keymap"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        }
+      ]
+    },
+    "keymap": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "variable"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "keymap_trigger"
+        }
+      ]
+    },
+    "keymap_trigger": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z0-9.+]+"
+    },
+    "font": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "font"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "font_name"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "number"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "unit"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "font_name": {
+      "type": "PATTERN",
+      "value": "[^\\s][^\\d][^\\n]+\\ "
+    },
+    "font_size": {
+      "type": "PATTERN",
+      "value": "\\d+(ppt|px)[^\\s\\n]"
+    },
+    "variable": {
+      "type": "TOKEN",
+      "content": {
+        "type": "FIELD",
+        "name": "reference",
+        "content": {
+          "type": "PATTERN",
+          "value": "\\$[a-zA-Z0-9_]+"
+        }
+      }
+    },
+    "arg": {
+      "type": "PATTERN",
+      "value": "[^\\s\"][^-][^-][^\\n\\s]*"
+    },
+    "flag": {
+      "type": "PATTERN",
+      "value": "--[^\\s\"][^\\n\\s]*"
+    },
+    "unit": {
+      "type": "PATTERN",
+      "value": "(px|ppt)"
+    },
+    "number": {
+      "type": "PATTERN",
+      "value": "\\d+"
+    },
+    "value": {
+      "type": "PATTERN",
+      "value": "[^\\s][^\\n]+"
     }
   },
   "extras": [

@@ -15,17 +15,18 @@ end
 function M.setup()
     local autocmd = vim.api.nvim_create_autocmd
     local autogroup = vim.api.nvim_create_augroup
-
     local group = autogroup("I3CONFIG", { clear = true })
-
-    autocmd("FileType",
+    autocmd("BufWritePost",
         {
             group = group,
-            pattern = { "i3config" },
+            pattern = { "grammar.js" },
             callback = function()
-                M.start()
+                vim.notify("generating tree-sitter")
+                vim.cmd [[ !tree-sitter generate && tree-sitter build ]]
             end
         })
+
+    M.start()
 end
 
 return M
