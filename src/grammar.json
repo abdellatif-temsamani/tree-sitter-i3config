@@ -66,6 +66,38 @@
             {
               "type": "SYMBOL",
               "name": "for_window"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "no_focus"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_definition"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "assign"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "exec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "exec_always"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "workspace"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "client"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "ipc_socket"
             }
           ]
         },
@@ -90,6 +122,383 @@
           }
         ]
       }
+    },
+    "ipc_socket": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "ipc-socket"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        }
+      ]
+    },
+    "client": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "client."
+        },
+        {
+          "type": "FIELD",
+          "name": "property",
+          "content": {
+            "type": "SYMBOL",
+            "name": "property"
+          }
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "FIELD",
+            "name": "identifier",
+            "content": {
+              "type": "SYMBOL",
+              "name": "variable"
+            }
+          }
+        }
+      ]
+    },
+    "property": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "focused"
+        },
+        {
+          "type": "STRING",
+          "value": "focused_inactive"
+        },
+        {
+          "type": "STRING",
+          "value": "unfocused"
+        },
+        {
+          "type": "STRING",
+          "value": "urgent"
+        },
+        {
+          "type": "STRING",
+          "value": "placeholder"
+        },
+        {
+          "type": "STRING",
+          "value": "background"
+        }
+      ]
+    },
+    "workspace": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "workspace"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "workspace_assign_output"
+            }
+          ]
+        }
+      ]
+    },
+    "workspace_assign_output": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_workspace_id"
+        },
+        {
+          "type": "STRING",
+          "value": "output"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        }
+      ]
+    },
+    "_workspace_id": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "FIELD",
+          "name": "identifier",
+          "content": {
+            "type": "SYMBOL",
+            "name": "variable"
+          }
+        }
+      ]
+    },
+    "exec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "exec"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "--no-startup-id"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "command",
+          "content": {
+            "type": "SYMBOL",
+            "name": "value"
+          }
+        }
+      ]
+    },
+    "exec_always": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "exec_always"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "--no-startup-id"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "command",
+          "content": {
+            "type": "SYMBOL",
+            "name": "value"
+          }
+        }
+      ]
+    },
+    "assign": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "assign"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "criteria"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "→"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "assign_workspace"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "assign_output"
+            }
+          ]
+        }
+      ]
+    },
+    "assign_workspace": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "number"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_workspace_id"
+        }
+      ]
+    },
+    "assign_output": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "output"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "left"
+            },
+            {
+              "type": "STRING",
+              "value": "right"
+            },
+            {
+              "type": "STRING",
+              "value": "up"
+            },
+            {
+              "type": "STRING",
+              "value": "down"
+            },
+            {
+              "type": "STRING",
+              "value": "primary"
+            },
+            {
+              "type": "STRING",
+              "value": "nonprimary"
+            },
+            {
+              "type": "STRING",
+              "value": "primary"
+            },
+            {
+              "type": "STRING",
+              "value": "nonprimary"
+            }
+          ]
+        }
+      ]
+    },
+    "_definition": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "set"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "set_from_resource"
+        }
+      ]
+    },
+    "set_from_resource": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "set_from_resource"
+        },
+        {
+          "type": "FIELD",
+          "name": "identifier",
+          "content": {
+            "type": "SYMBOL",
+            "name": "variable"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "resource",
+          "content": {
+            "type": "SYMBOL",
+            "name": "set_resource"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "fallback",
+          "content": {
+            "type": "SYMBOL",
+            "name": "set_resource_fallback"
+          }
+        }
+      ]
+    },
+    "set_resource": {
+      "type": "PATTERN",
+      "value": "i3wm\\.[^\\s]*"
+    },
+    "set_resource_fallback": {
+      "type": "PATTERN",
+      "value": "#[^\\s\\n]*"
+    },
+    "set": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "PATTERN",
+          "value": "set[^_]"
+        },
+        {
+          "type": "FIELD",
+          "name": "identifier",
+          "content": {
+            "type": "SYMBOL",
+            "name": "variable"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "value"
+          }
+        }
+      ]
+    },
+    "no_focus": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "no_focus"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "criteria"
+        }
+      ]
     },
     "for_window": {
       "type": "SEQ",
@@ -468,7 +877,7 @@
       "members": [
         {
           "type": "FIELD",
-          "name": "reference",
+          "name": "identifier",
           "content": {
             "type": "SYMBOL",
             "name": "variable"
@@ -565,7 +974,7 @@
           "members": [
             {
               "type": "FIELD",
-              "name": "reference",
+              "name": "identifier",
               "content": {
                 "type": "SYMBOL",
                 "name": "variable"
@@ -795,7 +1204,7 @@
             },
             {
               "type": "FIELD",
-              "name": "reference",
+              "name": "identifier",
               "content": {
                 "type": "SYMBOL",
                 "name": "variable"
@@ -812,6 +1221,10 @@
             {
               "type": "SYMBOL",
               "name": "border"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "exec"
             }
           ]
         },
@@ -820,6 +1233,10 @@
           "value": "\\n"
         }
       ]
+    },
+    "value": {
+      "type": "PATTERN",
+      "value": "[^\\s][^\\n]+"
     }
   },
   "extras": [

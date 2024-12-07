@@ -1,9 +1,63 @@
 [
   {
+    "type": "assign",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "assign_output",
+          "named": true
+        },
+        {
+          "type": "assign_workspace",
+          "named": true
+        },
+        {
+          "type": "criteria",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "assign_output",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "assign_workspace",
+    "named": true,
+    "fields": {
+      "identifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "binding",
     "named": true,
     "fields": {
-      "reference": {
+      "identifier": {
         "multiple": true,
         "required": false,
         "types": [
@@ -44,6 +98,10 @@
         },
         {
           "type": "criteria",
+          "named": true
+        },
+        {
+          "type": "exec",
           "named": true
         },
         {
@@ -105,6 +163,32 @@
     }
   },
   {
+    "type": "client",
+    "named": true,
+    "fields": {
+      "identifier": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      },
+      "property": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "property",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "criteria",
     "named": true,
     "fields": {},
@@ -157,6 +241,38 @@
     "fields": {}
   },
   {
+    "type": "exec",
+    "named": true,
+    "fields": {
+      "command": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "exec_always",
+    "named": true,
+    "fields": {
+      "command": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "floating_modifier",
     "named": true,
     "fields": {
@@ -176,7 +292,7 @@
     "type": "floating_modifier_value",
     "named": true,
     "fields": {
-      "reference": {
+      "identifier": {
         "multiple": false,
         "required": false,
         "types": [
@@ -241,7 +357,7 @@
     "type": "for_window",
     "named": true,
     "fields": {
-      "reference": {
+      "identifier": {
         "multiple": true,
         "required": false,
         "types": [
@@ -282,6 +398,10 @@
         },
         {
           "type": "criteria",
+          "named": true
+        },
+        {
+          "type": "exec",
           "named": true
         }
       ]
@@ -325,10 +445,25 @@
     }
   },
   {
+    "type": "ipc_socket",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "keymap",
     "named": true,
     "fields": {
-      "reference": {
+      "identifier": {
         "multiple": false,
         "required": false,
         "types": [
@@ -390,6 +525,10 @@
       "required": false,
       "types": [
         {
+          "type": "assign",
+          "named": true
+        },
+        {
           "type": "binding",
           "named": true
         },
@@ -398,11 +537,23 @@
           "named": true
         },
         {
+          "type": "client",
+          "named": true
+        },
+        {
           "type": "comment",
           "named": true
         },
         {
           "type": "default_orientation",
+          "named": true
+        },
+        {
+          "type": "exec",
+          "named": true
+        },
+        {
+          "type": "exec_always",
           "named": true
         },
         {
@@ -430,7 +581,23 @@
           "named": true
         },
         {
+          "type": "ipc_socket",
+          "named": true
+        },
+        {
           "type": "mode",
+          "named": true
+        },
+        {
+          "type": "no_focus",
+          "named": true
+        },
+        {
+          "type": "set",
+          "named": true
+        },
+        {
+          "type": "set_from_resource",
           "named": true
         },
         {
@@ -438,10 +605,96 @@
           "named": true
         },
         {
+          "type": "workspace",
+          "named": true
+        },
+        {
           "type": "workspace_layout",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "no_focus",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "criteria",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "property",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "set",
+    "named": true,
+    "fields": {
+      "identifier": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "set_from_resource",
+    "named": true,
+    "fields": {
+      "fallback": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "set_resource_fallback",
+            "named": true
+          }
+        ]
+      },
+      "identifier": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      },
+      "resource": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "set_resource",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -454,6 +707,10 @@
       "required": false,
       "types": [
         {
+          "type": "assign",
+          "named": true
+        },
+        {
           "type": "binding",
           "named": true
         },
@@ -462,11 +719,23 @@
           "named": true
         },
         {
+          "type": "client",
+          "named": true
+        },
+        {
           "type": "comment",
           "named": true
         },
         {
           "type": "default_orientation",
+          "named": true
+        },
+        {
+          "type": "exec",
+          "named": true
+        },
+        {
+          "type": "exec_always",
           "named": true
         },
         {
@@ -494,11 +763,31 @@
           "named": true
         },
         {
+          "type": "ipc_socket",
+          "named": true
+        },
+        {
           "type": "mode",
           "named": true
         },
         {
+          "type": "no_focus",
+          "named": true
+        },
+        {
+          "type": "set",
+          "named": true
+        },
+        {
+          "type": "set_from_resource",
+          "named": true
+        },
+        {
           "type": "title_align",
+          "named": true
+        },
+        {
+          "type": "workspace",
           "named": true
         },
         {
@@ -581,6 +870,51 @@
     }
   },
   {
+    "type": "workspace",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "workspace_assign_output",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "workspace_assign_output",
+    "named": true,
+    "fields": {
+      "identifier": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "workspace_layout",
     "named": true,
     "fields": {
@@ -610,6 +944,10 @@
     "named": false
   },
   {
+    "type": "--no-startup-id",
+    "named": false
+  },
+  {
     "type": "--release",
     "named": false
   },
@@ -630,7 +968,15 @@
     "named": true
   },
   {
+    "type": "assign",
+    "named": false
+  },
+  {
     "type": "auto",
+    "named": false
+  },
+  {
+    "type": "background",
     "named": false
   },
   {
@@ -658,6 +1004,10 @@
     "named": false
   },
   {
+    "type": "client.",
+    "named": false
+  },
+  {
     "type": "comment",
     "named": true
   },
@@ -675,6 +1025,18 @@
   },
   {
     "type": "default_orientation",
+    "named": false
+  },
+  {
+    "type": "down",
+    "named": false
+  },
+  {
+    "type": "exec",
+    "named": false
+  },
+  {
+    "type": "exec_always",
     "named": false
   },
   {
@@ -696,6 +1058,14 @@
   {
     "type": "floating_size_op",
     "named": true
+  },
+  {
+    "type": "focused",
+    "named": false
+  },
+  {
+    "type": "focused_inactive",
+    "named": false
   },
   {
     "type": "font",
@@ -726,6 +1096,10 @@
     "named": true
   },
   {
+    "type": "ipc-socket",
+    "named": false
+  },
+  {
     "type": "keymap_trigger",
     "named": true
   },
@@ -742,7 +1116,15 @@
     "named": true
   },
   {
+    "type": "no_focus",
+    "named": false
+  },
+  {
     "type": "none",
+    "named": false
+  },
+  {
+    "type": "nonprimary",
     "named": false
   },
   {
@@ -754,12 +1136,28 @@
     "named": true
   },
   {
+    "type": "number",
+    "named": false
+  },
+  {
+    "type": "output",
+    "named": false
+  },
+  {
     "type": "pixel",
+    "named": false
+  },
+  {
+    "type": "placeholder",
     "named": false
   },
   {
     "type": "ppt_unit",
     "named": true
+  },
+  {
+    "type": "primary",
+    "named": false
   },
   {
     "type": "px_unit",
@@ -772,6 +1170,18 @@
   {
     "type": "right",
     "named": false
+  },
+  {
+    "type": "set_from_resource",
+    "named": false
+  },
+  {
+    "type": "set_resource",
+    "named": true
+  },
+  {
+    "type": "set_resource_fallback",
+    "named": true
   },
   {
     "type": "smart",
@@ -798,6 +1208,22 @@
     "named": false
   },
   {
+    "type": "unfocused",
+    "named": false
+  },
+  {
+    "type": "up",
+    "named": false
+  },
+  {
+    "type": "urgent",
+    "named": false
+  },
+  {
+    "type": "value",
+    "named": true
+  },
+  {
     "type": "variable",
     "named": true
   },
@@ -810,6 +1236,10 @@
     "named": false
   },
   {
+    "type": "workspace",
+    "named": false
+  },
+  {
     "type": "workspace_layout",
     "named": false
   },
@@ -819,6 +1249,10 @@
   },
   {
     "type": "}",
+    "named": false
+  },
+  {
+    "type": "→",
     "named": false
   }
 ]

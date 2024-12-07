@@ -23,6 +23,8 @@ function M.debugging()
             pattern = { "config" },
             callback = function()
                 vim.cmd [[InspectTree]]
+                vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>h", true, false, true), "n", false)
+
             end
         })
 

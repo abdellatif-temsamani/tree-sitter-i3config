@@ -7,6 +7,7 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
+/// TODO: STOPPED HERE https://i3wm.org/docs/userguide.html#_focus_follows_mouse
 module.exports = grammar({
     name: "i3config",
 
@@ -30,12 +31,105 @@ module.exports = grammar({
                     $.border,
                     $.hide_edge_borders,
                     $.for_window,
+                    $.no_focus,
+                    $._definition,
+                    $.assign,
+                    $.exec,
+                    $.exec_always,
+                    $.workspace,
+                    $.client,
+                    $.ipc_socket,
                 ),
                 /\n/,
             ),
 
         // comment //
         comment: () => token(seq("#", /.*/)),
+
+        // ipc-socket //
+        ipc_socket: ($) => seq("ipc-socket", $.value),
+        // client //
+        client: ($) =>
+            seq(
+                "client.",
+                field("property", $.property),
+                repeat(field("identifier", $.variable)),
+            ),
+        property: () =>
+            choice(
+                "focused",
+                "focused_inactive",
+                "unfocused",
+                "urgent",
+                "placeholder",
+                "background",
+            ),
+
+        // workspace //
+        workspace: ($) => seq("workspace", choice($.workspace_assign_output)),
+        workspace_assign_output: ($) => seq($._workspace_id, "output", $.value),
+        _workspace_id: ($) => choice($.number, field("identifier", $.variable)),
+
+        // exec //
+        exec: ($) =>
+            seq("exec", optional("--no-startup-id"), field("command", $.value)),
+        exec_always: ($) =>
+            seq(
+                "exec_always",
+                optional("--no-startup-id"),
+                field("command", $.value),
+            ),
+
+        // assign //
+        assign: ($) =>
+            seq(
+                "assign",
+                $.criteria,
+                optional("→"),
+                choice($.assign_workspace, $.assign_output),
+            ),
+        assign_workspace: ($) => seq(optional("number"), $._workspace_id),
+        assign_output: () =>
+            seq(
+                "output",
+                choice(
+                    "left",
+                    "right",
+                    "up",
+                    "down",
+                    "primary",
+                    "nonprimary",
+                    "primary",
+                    "nonprimary",
+                ),
+            ),
+
+        // assign <criteria> [→] output left|right|up|down|primary|nonprimary|<output>
+
+        // definitions //
+        _definition: ($) => choice($.set, $.set_from_resource),
+
+        // set_from_resource  //
+        set_from_resource: ($) =>
+            seq(
+                "set_from_resource",
+                field("identifier", $.variable),
+                field("resource", $.set_resource),
+                field("fallback", $.set_resource_fallback),
+            ),
+        set_resource: () => /i3wm\.[^\s]*/,
+        set_resource_fallback: () => /#[^\s\n]*/,
+
+        // set //
+        set: ($) =>
+            seq(
+                /set[^_]/,
+                field("identifier", $.variable),
+                field("value", $.value),
+            ),
+
+        // no_focus //
+        no_focus: ($) => seq("no_focus", $.criteria),
 
         // for_window //
         for_window: ($) =>
@@ -117,7 +211,7 @@ module.exports = grammar({
         floating_modifier: ($) =>
             seq("floating_modifier", field("value", $.floating_modifier_value)),
         floating_modifier_value: ($) =>
-            choice(field("reference", $.variable), /\w+/),
+            choice(field("identifier", $.variable), /\w+/),
 
         // floating_size //
         floating_size: ($) =>
@@ -139,7 +233,7 @@ module.exports = grammar({
                 repeat1($._value),
             ),
         keymap: ($) =>
-            seq(optional(field("reference", $.variable)), $.keymap_trigger),
+            seq(optional(field("identifier", $.variable)), $.keymap_trigger),
         keymap_trigger: () => /[a-zA-Z0-9.+]+/,
         keymap_flags: () =>
             choice(
@@ -184,11 +278,13 @@ module.exports = grammar({
             seq(
                 choice(
                     seq("mode", field("reference_mode", $.mode_name)),
-                    field("reference", $.variable),
+                    field("identifier", $.variable),
                     field("unit", $.unit),
                     $.border,
+                    $.exec,
                 ),
                 /\n/,
             ),
+        value: () => /[^\s][^\n]+/,
     },
 });
