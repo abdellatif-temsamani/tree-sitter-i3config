@@ -122,29 +122,32 @@
           "value": "["
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "class_criteria"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "title_criteria"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "all_criteria"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "floating_criteria"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "window_role_criteria"
-            }
-          ]
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "class_criteria"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "title_criteria"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "all_criteria"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "floating_criteria"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "window_role_criteria"
+              }
+            ]
+          }
         },
         {
           "type": "STRING",

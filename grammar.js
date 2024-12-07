@@ -45,12 +45,14 @@ module.exports = grammar({
         criteria: ($) =>
             seq(
                 "[",
-                choice(
-                    $.class_criteria,
-                    $.title_criteria,
-                    $.all_criteria,
-                    $.floating_criteria,
-                    $.window_role_criteria,
+                repeat1(
+                    choice(
+                        $.class_criteria,
+                        $.title_criteria,
+                        $.all_criteria,
+                        $.floating_criteria,
+                        $.window_role_criteria,
+                    ),
                 ),
                 "]",
             ),
