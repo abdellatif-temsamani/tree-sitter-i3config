@@ -12,10 +12,20 @@ function M.start()
     }
 end
 
-function M.setup()
+function M.debugging()
     local autocmd = vim.api.nvim_create_autocmd
     local autogroup = vim.api.nvim_create_augroup
     local group = autogroup("I3CONFIG", { clear = true })
+
+    autocmd("BufReadPost",
+        {
+            group = group,
+            pattern = { "config" },
+            callback = function()
+                vim.cmd [[InspectTree]]
+            end
+        })
+
     autocmd("BufWritePost",
         {
             group = group,
@@ -25,7 +35,9 @@ function M.setup()
                 vim.cmd [[ !tree-sitter generate && tree-sitter build ]]
             end
         })
+end
 
+function M.setup()
     M.start()
 end
 

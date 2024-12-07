@@ -2,11 +2,50 @@
   {
     "type": "binding",
     "named": true,
-    "fields": {},
+    "fields": {
+      "reference": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      },
+      "reference_mode": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "mode_name",
+            "named": true
+          }
+        ]
+      },
+      "unit": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "unit",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "border",
+          "named": true
+        },
+        {
+          "type": "criteria",
+          "named": true
+        },
         {
           "type": "keymap",
           "named": true
@@ -14,9 +53,155 @@
         {
           "type": "keymap_flags",
           "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "border",
+    "named": true,
+    "fields": {
+      "mode": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "border_value",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "border_value",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "class_criteria",
+    "named": true,
+    "fields": {
+      "class": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "quoted_string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "criteria",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "all_criteria",
+          "named": true
         },
         {
-          "type": "value",
+          "type": "class_criteria",
+          "named": true
+        },
+        {
+          "type": "floating_criteria",
+          "named": true
+        },
+        {
+          "type": "title_criteria",
+          "named": true
+        },
+        {
+          "type": "window_role_criteria",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "default_orientation",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "default_orientation_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "default_orientation_value",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "floating_modifier",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "floating_modifier_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "floating_modifier_value",
+    "named": true,
+    "fields": {
+      "reference": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "floating_size",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "floating_size_op",
+          "named": true
+        },
+        {
+          "type": "number",
           "named": true
         }
       ]
@@ -25,7 +210,18 @@
   {
     "type": "font",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "unit",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -37,43 +233,118 @@
         {
           "type": "number",
           "named": true
-        },
-        {
-          "type": "unit",
-          "named": true
         }
       ]
     }
   },
   {
-    "type": "include",
+    "type": "for_window",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "include_source",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "keymap",
-    "named": true,
-    "fields": {},
+    "fields": {
+      "reference": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      },
+      "reference_mode": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "mode_name",
+            "named": true
+          }
+        ]
+      },
+      "unit": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "unit",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "keymap_trigger",
+          "type": "border",
           "named": true
         },
         {
-          "type": "variable",
+          "type": "criteria",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "hide_edge_borders",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "hide_edge_borders_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "hide_edge_borders_value",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "include",
+    "named": true,
+    "fields": {
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "include_source",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "keymap",
+    "named": true,
+    "fields": {
+      "reference": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "variable",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "keymap_trigger",
           "named": true
         }
       ]
@@ -88,6 +359,16 @@
     "type": "mode",
     "named": true,
     "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "mode_body",
+            "named": true
+          }
+        ]
+      },
       "name": {
         "multiple": false,
         "required": true,
@@ -98,16 +379,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "mode_body",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -119,7 +390,55 @@
       "required": false,
       "types": [
         {
-          "type": "statement",
+          "type": "binding",
+          "named": true
+        },
+        {
+          "type": "border",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "default_orientation",
+          "named": true
+        },
+        {
+          "type": "floating_modifier",
+          "named": true
+        },
+        {
+          "type": "floating_size",
+          "named": true
+        },
+        {
+          "type": "font",
+          "named": true
+        },
+        {
+          "type": "for_window",
+          "named": true
+        },
+        {
+          "type": "hide_edge_borders",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "mode",
+          "named": true
+        },
+        {
+          "type": "title_align",
+          "named": true
+        },
+        {
+          "type": "workspace_layout",
           "named": true
         }
       ]
@@ -135,22 +454,11 @@
       "required": false,
       "types": [
         {
-          "type": "statement",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "statement",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
           "type": "binding",
+          "named": true
+        },
+        {
+          "type": "border",
           "named": true
         },
         {
@@ -158,7 +466,27 @@
           "named": true
         },
         {
+          "type": "default_orientation",
+          "named": true
+        },
+        {
+          "type": "floating_modifier",
+          "named": true
+        },
+        {
+          "type": "floating_size",
+          "named": true
+        },
+        {
           "type": "font",
+          "named": true
+        },
+        {
+          "type": "for_window",
+          "named": true
+        },
+        {
+          "type": "hide_edge_borders",
           "named": true
         },
         {
@@ -168,9 +496,110 @@
         {
           "type": "mode",
           "named": true
+        },
+        {
+          "type": "title_align",
+          "named": true
+        },
+        {
+          "type": "workspace_layout",
+          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "title_align",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "title_align_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "title_align_value",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "title_criteria",
+    "named": true,
+    "fields": {
+      "title": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "quoted_string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "unit",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ppt_unit",
+          "named": true
+        },
+        {
+          "type": "px_unit",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "window_role_criteria",
+    "named": true,
+    "fields": {
+      "window_role": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "quoted_string",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "workspace_layout",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "workspace_layout_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "workspace_layout_value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "--border",
@@ -189,6 +618,22 @@
     "named": false
   },
   {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "all_criteria",
+    "named": true
+  },
+  {
+    "type": "auto",
+    "named": false
+  },
+  {
     "type": "bindcode",
     "named": false
   },
@@ -197,7 +642,59 @@
     "named": false
   },
   {
+    "type": "border",
+    "named": false
+  },
+  {
+    "type": "both",
+    "named": false
+  },
+  {
+    "type": "center",
+    "named": false
+  },
+  {
+    "type": "class=",
+    "named": false
+  },
+  {
     "type": "comment",
+    "named": true
+  },
+  {
+    "type": "default",
+    "named": false
+  },
+  {
+    "type": "default_border",
+    "named": false
+  },
+  {
+    "type": "default_floating_border",
+    "named": false
+  },
+  {
+    "type": "default_orientation",
+    "named": false
+  },
+  {
+    "type": "floating_criteria",
+    "named": true
+  },
+  {
+    "type": "floating_maximum_size",
+    "named": false
+  },
+  {
+    "type": "floating_minimum_size",
+    "named": false
+  },
+  {
+    "type": "floating_modifier",
+    "named": false
+  },
+  {
+    "type": "floating_size_op",
     "named": true
   },
   {
@@ -207,6 +704,18 @@
   {
     "type": "font_name",
     "named": true
+  },
+  {
+    "type": "for_window",
+    "named": false
+  },
+  {
+    "type": "hide_edge_borders",
+    "named": false
+  },
+  {
+    "type": "horizontal",
+    "named": false
   },
   {
     "type": "include",
@@ -221,6 +730,10 @@
     "named": true
   },
   {
+    "type": "left",
+    "named": false
+  },
+  {
     "type": "mode",
     "named": false
   },
@@ -229,20 +742,76 @@
     "named": true
   },
   {
+    "type": "none",
+    "named": false
+  },
+  {
+    "type": "normal",
+    "named": false
+  },
+  {
     "type": "number",
     "named": true
   },
   {
-    "type": "unit",
+    "type": "pixel",
+    "named": false
+  },
+  {
+    "type": "ppt_unit",
     "named": true
   },
   {
-    "type": "value",
+    "type": "px_unit",
     "named": true
+  },
+  {
+    "type": "quoted_string",
+    "named": true
+  },
+  {
+    "type": "right",
+    "named": false
+  },
+  {
+    "type": "smart",
+    "named": false
+  },
+  {
+    "type": "smart_no_gaps",
+    "named": false
+  },
+  {
+    "type": "stacking",
+    "named": false
+  },
+  {
+    "type": "tabbed",
+    "named": false
+  },
+  {
+    "type": "title=",
+    "named": false
+  },
+  {
+    "type": "title_align",
+    "named": false
   },
   {
     "type": "variable",
     "named": true
+  },
+  {
+    "type": "vertical",
+    "named": false
+  },
+  {
+    "type": "window_role=",
+    "named": false
+  },
+  {
+    "type": "workspace_layout",
+    "named": false
   },
   {
     "type": "{",
