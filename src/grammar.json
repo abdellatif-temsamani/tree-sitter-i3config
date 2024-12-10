@@ -98,6 +98,46 @@
             {
               "type": "SYMBOL",
               "name": "ipc_socket"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "focus_follows_mouse"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "mouse_warping"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "popup_during_fullscreen"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "focus_wrapping"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "force_xinerama"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "workspace_auto_back_and_forth"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "force_display_urgency_hint"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "focus_on_window_activation"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "show_marks"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "tiling_drag"
             }
           ]
         },
@@ -122,6 +162,337 @@
           }
         ]
       }
+    },
+    "tiling_drag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "tiling_drag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tiling_drag_value"
+        }
+      ]
+    },
+    "tiling_drag_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "off"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tiling_drag_swap"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tiling_drag_modifier"
+        }
+      ]
+    },
+    "tiling_drag_swap": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "swap_modifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "identifier",
+              "content": {
+                "type": "SYMBOL",
+                "name": "variable"
+              }
+            },
+            {
+              "type": "SYMBOL",
+              "name": "value"
+            }
+          ]
+        }
+      ]
+    },
+    "tiling_drag_modifier": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "modifier"
+            },
+            {
+              "type": "STRING",
+              "value": "titlebar"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "modifier"
+            },
+            {
+              "type": "STRING",
+              "value": "titlebar"
+            }
+          ]
+        }
+      ]
+    },
+    "show_marks": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "show_marks"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "show_marks_value"
+        }
+      ]
+    },
+    "show_marks_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "yes"
+        },
+        {
+          "type": "STRING",
+          "value": "no"
+        }
+      ]
+    },
+    "focus_on_window_activation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "focus_on_window_activation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "focus_on_window_activation_value"
+        }
+      ]
+    },
+    "focus_on_window_activation_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "smart"
+        },
+        {
+          "type": "STRING",
+          "value": "urgent"
+        },
+        {
+          "type": "STRING",
+          "value": "focus"
+        },
+        {
+          "type": "STRING",
+          "value": "none"
+        }
+      ]
+    },
+    "force_display_urgency_hint": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "force_display_urgency_hint"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "ms"
+        }
+      ]
+    },
+    "workspace_auto_back_and_forth": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "workspace_auto_back_and_forth"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "workspace_auto_back_and_forth_value"
+        }
+      ]
+    },
+    "workspace_auto_back_and_forth_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "yes"
+        },
+        {
+          "type": "STRING",
+          "value": "no"
+        }
+      ]
+    },
+    "force_xinerama": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "force_xinerama"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "force_xinerama_value"
+        }
+      ]
+    },
+    "force_xinerama_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "yes"
+        },
+        {
+          "type": "STRING",
+          "value": "no"
+        }
+      ]
+    },
+    "focus_wrapping": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "focus_wrapping"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "focus_wrapping_value"
+        }
+      ]
+    },
+    "focus_wrapping_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "yes"
+        },
+        {
+          "type": "STRING",
+          "value": "no"
+        },
+        {
+          "type": "STRING",
+          "value": "force"
+        },
+        {
+          "type": "STRING",
+          "value": "workspace"
+        }
+      ]
+    },
+    "popup_during_fullscreen": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "popup_during_fullscreen"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "popup_during_fullscreen_value"
+        }
+      ]
+    },
+    "popup_during_fullscreen_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "smart"
+        },
+        {
+          "type": "STRING",
+          "value": "ignore"
+        },
+        {
+          "type": "STRING",
+          "value": "leave_fullscreen"
+        },
+        {
+          "type": "STRING",
+          "value": "all"
+        }
+      ]
+    },
+    "mouse_warping": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "mouse_warping"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "value"
+        }
+      ]
+    },
+    "focus_follows_mouse": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "focus_follows_mouse"
+        },
+        {
+          "type": "FIELD",
+          "name": "follow_mouse_value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "focus_follows_mouse_value"
+          }
+        }
+      ]
+    },
+    "focus_follows_mouse_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "yes"
+        },
+        {
+          "type": "STRING",
+          "value": "no"
+        }
+      ]
     },
     "ipc_socket": {
       "type": "SEQ",
@@ -1186,6 +1557,18 @@
           "type": "CHOICE",
           "members": [
             {
+              "type": "STRING",
+              "value": "\\"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
               "type": "SEQ",
               "members": [
                 {
@@ -1194,7 +1577,7 @@
                 },
                 {
                   "type": "FIELD",
-                  "name": "reference_mode",
+                  "name": "name",
                   "content": {
                     "type": "SYMBOL",
                     "name": "mode_name"

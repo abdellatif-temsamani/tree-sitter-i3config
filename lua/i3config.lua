@@ -24,7 +24,6 @@ function M.debugging()
             callback = function()
                 vim.cmd [[InspectTree]]
                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>h", true, false, true), "n", false)
-
             end
         })
 
@@ -33,8 +32,13 @@ function M.debugging()
             group = group,
             pattern = { "grammar.js" },
             callback = function()
-                vim.notify("generating tree-sitter")
-                vim.cmd [[ !tree-sitter generate && tree-sitter build ]]
+                local obj = vim.system({ 'tree-sitter', 'generate', }, { text = true }):wait()
+
+                if obj.code == 0 then
+                    vim.notify("treesitter parser generated", 2, { title = "I3 Config" })
+                else
+                    vim.notify(obj.stderr, 4, { title = "I3 Config" })
+                end
             end
         })
 end
