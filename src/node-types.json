@@ -110,11 +110,23 @@
           "named": true
         },
         {
+          "type": "focus",
+          "named": true
+        },
+        {
+          "type": "gaps",
+          "named": true
+        },
+        {
           "type": "keymap",
           "named": true
         },
         {
           "type": "keymap_flags",
+          "named": true
+        },
+        {
+          "type": "sticky",
           "named": true
         }
       ]
@@ -329,6 +341,22 @@
     }
   },
   {
+    "type": "focus",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "focus_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "focus_follows_mouse",
     "named": true,
     "fields": {
@@ -366,6 +394,11 @@
   },
   {
     "type": "focus_on_window_activation_value",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "focus_value",
     "named": true,
     "fields": {}
   },
@@ -469,6 +502,18 @@
         {
           "type": "exec",
           "named": true
+        },
+        {
+          "type": "focus",
+          "named": true
+        },
+        {
+          "type": "gaps",
+          "named": true
+        },
+        {
+          "type": "sticky",
+          "named": true
         }
       ]
     }
@@ -506,6 +551,41 @@
   },
   {
     "type": "force_xinerama_value",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "gaps",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "gaps_option",
+          "named": true
+        },
+        {
+          "type": "px_unit",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "gaps_option",
     "named": true,
     "fields": {}
   },
@@ -695,6 +775,10 @@
           "named": true
         },
         {
+          "type": "gaps",
+          "named": true
+        },
+        {
           "type": "hide_edge_borders",
           "named": true
         },
@@ -732,6 +816,14 @@
         },
         {
           "type": "show_marks",
+          "named": true
+        },
+        {
+          "type": "smart_borders",
+          "named": true
+        },
+        {
+          "type": "smart_gaps",
           "named": true
         },
         {
@@ -895,6 +987,46 @@
     "fields": {}
   },
   {
+    "type": "smart_borders",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "smart_borders_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "smart_borders_value",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "smart_gaps",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "smart_gaps_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "smart_gaps_value",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -972,6 +1104,10 @@
           "named": true
         },
         {
+          "type": "gaps",
+          "named": true
+        },
+        {
           "type": "hide_edge_borders",
           "named": true
         },
@@ -1012,6 +1148,14 @@
           "named": true
         },
         {
+          "type": "smart_borders",
+          "named": true
+        },
+        {
+          "type": "smart_gaps",
+          "named": true
+        },
+        {
           "type": "tiling_drag",
           "named": true
         },
@@ -1033,6 +1177,27 @@
         }
       ]
     }
+  },
+  {
+    "type": "sticky",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "sticky_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sticky_value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "tiling_drag",
@@ -1322,6 +1487,10 @@
     "named": false
   },
   {
+    "type": "bottom",
+    "named": false
+  },
+  {
     "type": "center",
     "named": false
   },
@@ -1336,6 +1505,10 @@
   {
     "type": "comment",
     "named": true
+  },
+  {
+    "type": "current",
+    "named": false
   },
   {
     "type": "default",
@@ -1354,7 +1527,15 @@
     "named": false
   },
   {
+    "type": "disable",
+    "named": false
+  },
+  {
     "type": "down",
+    "named": false
+  },
+  {
+    "type": "enable",
     "named": false
   },
   {
@@ -1434,6 +1615,10 @@
     "named": false
   },
   {
+    "type": "gaps",
+    "named": false
+  },
+  {
     "type": "hide_edge_borders",
     "named": false
   },
@@ -1454,6 +1639,14 @@
     "named": true
   },
   {
+    "type": "inner",
+    "named": false
+  },
+  {
+    "type": "inverse_outer",
+    "named": false
+  },
+  {
     "type": "ipc-socket",
     "named": false
   },
@@ -1462,11 +1655,19 @@
     "named": true
   },
   {
+    "type": "kill",
+    "named": false
+  },
+  {
     "type": "leave_fullscreen",
     "named": false
   },
   {
     "type": "left",
+    "named": false
+  },
+  {
+    "type": "minus",
     "named": false
   },
   {
@@ -1511,14 +1712,22 @@
   },
   {
     "type": "number",
-    "named": true
-  },
-  {
-    "type": "number",
     "named": false
   },
   {
+    "type": "number",
+    "named": true
+  },
+  {
     "type": "off",
+    "named": false
+  },
+  {
+    "type": "on",
+    "named": false
+  },
+  {
+    "type": "outer",
     "named": false
   },
   {
@@ -1531,6 +1740,10 @@
   },
   {
     "type": "placeholder",
+    "named": false
+  },
+  {
+    "type": "plus",
     "named": false
   },
   {
@@ -1554,7 +1767,15 @@
     "named": true
   },
   {
+    "type": "restart",
+    "named": false
+  },
+  {
     "type": "right",
+    "named": false
+  },
+  {
+    "type": "set",
     "named": false
   },
   {
@@ -1578,11 +1799,23 @@
     "named": false
   },
   {
+    "type": "smart_borders",
+    "named": false
+  },
+  {
+    "type": "smart_gaps",
+    "named": false
+  },
+  {
     "type": "smart_no_gaps",
     "named": false
   },
   {
     "type": "stacking",
+    "named": false
+  },
+  {
+    "type": "sticky",
     "named": false
   },
   {
@@ -1607,6 +1840,14 @@
   },
   {
     "type": "titlebar",
+    "named": false
+  },
+  {
+    "type": "toggle",
+    "named": false
+  },
+  {
+    "type": "top",
     "named": false
   },
   {

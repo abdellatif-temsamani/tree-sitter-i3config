@@ -138,6 +138,18 @@
             {
               "type": "SYMBOL",
               "name": "tiling_drag"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "gaps"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "smart_gaps"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "smart_borders"
             }
           ]
         },
@@ -162,6 +174,159 @@
           }
         ]
       }
+    },
+    "smart_borders": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "smart_borders"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "smart_borders_value"
+        }
+      ]
+    },
+    "smart_borders_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "on"
+        },
+        {
+          "type": "STRING",
+          "value": "off"
+        },
+        {
+          "type": "STRING",
+          "value": "inverse_outer"
+        }
+      ]
+    },
+    "smart_gaps": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "smart_gaps"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "smart_gaps_value"
+        }
+      ]
+    },
+    "smart_gaps_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "on"
+        },
+        {
+          "type": "STRING",
+          "value": "off"
+        },
+        {
+          "type": "STRING",
+          "value": "inverse_outer"
+        }
+      ]
+    },
+    "gaps": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "gaps"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "gaps_option"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "px_unit"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "gaps_option": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "outer"
+        },
+        {
+          "type": "STRING",
+          "value": "inner"
+        },
+        {
+          "type": "STRING",
+          "value": "horizontal"
+        },
+        {
+          "type": "STRING",
+          "value": "vertical"
+        },
+        {
+          "type": "STRING",
+          "value": "top"
+        },
+        {
+          "type": "STRING",
+          "value": "left"
+        },
+        {
+          "type": "STRING",
+          "value": "bottom"
+        },
+        {
+          "type": "STRING",
+          "value": "right"
+        },
+        {
+          "type": "STRING",
+          "value": "plus"
+        },
+        {
+          "type": "STRING",
+          "value": "minus"
+        },
+        {
+          "type": "STRING",
+          "value": "set"
+        },
+        {
+          "type": "STRING",
+          "value": "all"
+        },
+        {
+          "type": "STRING",
+          "value": "current"
+        }
+      ]
     },
     "tiling_drag": {
       "type": "SEQ",
@@ -1311,11 +1476,19 @@
           ]
         },
         {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "keymap_flags"
-          }
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "keymap_flags"
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "SYMBOL",
@@ -1608,6 +1781,14 @@
             {
               "type": "SYMBOL",
               "name": "exec"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "gaps"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_i3_commands"
             }
           ]
         },
@@ -1620,6 +1801,99 @@
     "value": {
       "type": "PATTERN",
       "value": "[^\\s][^\\n]+"
+    },
+    "_i3_commands": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "kill"
+        },
+        {
+          "type": "STRING",
+          "value": "restart"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sticky"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "focus"
+        }
+      ]
+    },
+    "focus": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "focus"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "focus_value"
+          }
+        }
+      ]
+    },
+    "focus_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "left"
+        },
+        {
+          "type": "STRING",
+          "value": "right"
+        },
+        {
+          "type": "STRING",
+          "value": "up"
+        },
+        {
+          "type": "STRING",
+          "value": "down"
+        }
+      ]
+    },
+    "sticky": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "sticky"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "sticky_value"
+          }
+        }
+      ]
+    },
+    "sticky_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "enable"
+        },
+        {
+          "type": "STRING",
+          "value": "disable"
+        },
+        {
+          "type": "STRING",
+          "value": "toggle"
+        }
+      ]
     }
   },
   "extras": [

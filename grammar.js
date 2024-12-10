@@ -49,12 +49,51 @@ module.exports = grammar({
           $.focus_on_window_activation,
           $.show_marks,
           $.tiling_drag,
+          $.gaps,
+          $.smart_gaps,
+          $.smart_borders,
         ),
         /\n/,
       ),
 
     // comment //
     comment: () => token(seq("#", /.*/)),
+
+    // smart_borders //
+    smart_borders: ($) => seq("smart_borders", $.smart_borders_value),
+    smart_borders_value: () => choice("on", "off", "inverse_outer"),
+
+    // smart_gaps //
+    smart_gaps: ($) => seq("smart_gaps", $.smart_gaps_value),
+    smart_gaps_value: () => choice("on", "off", "inverse_outer"),
+
+    // gaps //
+    gaps: ($) =>
+      seq(
+        "gaps",
+        repeat1($.gaps_option),
+        field("value", $.number),
+        optional($.px_unit),
+      ),
+    gaps_option: () =>
+      choice(
+        "outer",
+        "inner",
+
+        "horizontal",
+        "vertical",
+        "top",
+        "left",
+        "bottom",
+        "right",
+
+        "plus",
+        "minus",
+        "set",
+
+        "all",
+        "current",
+      ),
 
     // tiling_drag //
     tiling_drag: ($) => seq("tiling_drag", $.tiling_drag_value),
@@ -232,7 +271,7 @@ module.exports = grammar({
 
     title_criteria: ($) => seq("title=", field("title", $.quoted_string)),
 
-    /// hide_edge_borders vertical///
+    /// hide_edge_borders vertical //
     hide_edge_borders: ($) =>
       seq("hide_edge_borders", field("value", $.hide_edge_borders_value)),
     hide_edge_borders_value: () =>
@@ -297,7 +336,7 @@ module.exports = grammar({
     binding: ($) =>
       seq(
         choice("bindsym", "bindcode"),
-        repeat($.keymap_flags),
+        optional(repeat($.keymap_flags)),
         $.keymap,
         repeat($.criteria),
         repeat1($._value),
@@ -353,9 +392,20 @@ module.exports = grammar({
           field("unit", $.unit),
           $.border,
           $.exec,
+          $.gaps,
+          $._i3_commands,
         ),
         /\n/,
       ),
     value: () => /[^\s][^\n]+/,
+
+    // i3 commands //
+    _i3_commands: ($) => choice("kill", "restart", $.sticky, $.focus),
+
+    focus: ($) => seq("focus", field("value", $.focus_value)),
+    focus_value: () => choice("left", "right", "up", "down"),
+
+    sticky: ($) => seq("sticky", field("value", $.sticky_value)),
+    sticky_value: () => choice("enable", "disable", "toggle"),
   },
 });
