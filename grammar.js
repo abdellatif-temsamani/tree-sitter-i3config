@@ -7,7 +7,6 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
-/// TODO: STOPPED HERE https://i3wm.org/docs/userguide.html#_focus_follows_mouse
 module.exports = grammar({
   name: "i3config",
 
@@ -102,7 +101,7 @@ module.exports = grammar({
     tiling_drag_swap: ($) =>
       seq(
         "swap_modifier",
-        choice(field("identifier", $.variable), $.value),
+        choice(field("identifier", $.identifier), $.value),
       ),
     tiling_drag_modifier: () =>
       seq(choice("modifier", "titlebar"), choice("modifier", "titlebar")),
@@ -164,7 +163,7 @@ module.exports = grammar({
       seq(
         "client.",
         field("property", $.property),
-        repeat(field("identifier", $.variable)),
+        repeat(field("identifier", $.identifier)),
       ),
     property: () =>
       choice(
@@ -175,11 +174,6 @@ module.exports = grammar({
         "placeholder",
         "background",
       ),
-
-    // workspace //
-    workspace: ($) => seq("workspace", choice($.workspace_assign_output)),
-    workspace_assign_output: ($) => seq($._workspace_id, "output", $.value),
-    _workspace_id: ($) => choice($.number, field("identifier", $.variable)),
 
     // exec //
     exec: ($) =>
@@ -200,19 +194,14 @@ module.exports = grammar({
         choice($.assign_workspace, $.assign_output),
       ),
     assign_workspace: ($) => seq(optional("number"), $._workspace_id),
-    assign_output: () =>
-      seq(
-        "output",
-        choice(
-          "left",
-          "right",
-          "up",
-          "down",
-          "primary",
-          "nonprimary",
-          "primary",
-          "nonprimary",
-        ),
+    assign_output: ($) => seq("output", $._output_value),
+    _output_value: ($) =>
+      choice(
+        $._directions,
+        "primary",
+        "nonprimary",
+        "primary",
+        "nonprimary",
       ),
 
     // definitions //
@@ -222,7 +211,7 @@ module.exports = grammar({
     set_from_resource: ($) =>
       seq(
         "set_from_resource",
-        field("identifier", $.variable),
+        field("identifier", $.identifier),
         field("resource", $.set_resource),
         field("fallback", $.set_resource_fallback),
       ),
@@ -233,7 +222,7 @@ module.exports = grammar({
     set: ($) =>
       seq(
         /set[^_]/,
-        field("identifier", $.variable),
+        field("identifier", $.identifier),
         field("value", $.value),
       ),
 
@@ -241,35 +230,12 @@ module.exports = grammar({
     no_focus: ($) => seq("no_focus", $.criteria),
 
     // for_window //
-    for_window: ($) =>
-      seq("for_window", repeat1($.criteria), repeat1($._value)),
+    for_window: ($) => seq("for_window", repeat1($.criteria), $._value),
 
     // criteria //
-    criteria: ($) =>
-      seq(
-        "[",
-        repeat1(
-          choice(
-            $.class_criteria,
-            $.title_criteria,
-            $.all_criteria,
-            $.floating_criteria,
-            $.window_role_criteria,
-          ),
-        ),
-        "]",
-      ),
-
-    all_criteria: () => "all",
-
-    floating_criteria: () => "floating",
-
-    class_criteria: ($) => seq("class=", field("class", $.quoted_string)),
-
-    window_role_criteria: ($) =>
-      seq("window_role=", field("window_role", $.quoted_string)),
-
-    title_criteria: ($) => seq("title=", field("title", $.quoted_string)),
+    criteria: ($) => seq("[", repeat1($._criteria_value), "]"),
+    _criteria_value: ($) =>
+      seq(/\w+/, optional(seq("=", field("value", $.quoted_string)))),
 
     /// hide_edge_borders vertical //
     hide_edge_borders: ($) =>
@@ -320,7 +286,7 @@ module.exports = grammar({
     floating_modifier: ($) =>
       seq("floating_modifier", field("value", $.floating_modifier_value)),
     floating_modifier_value: ($) =>
-      choice(field("identifier", $.variable), /\w+/),
+      choice(field("identifier", $.identifier), /\w+/),
 
     // floating_size //
     floating_size: ($) =>
@@ -338,11 +304,11 @@ module.exports = grammar({
         choice("bindsym", "bindcode"),
         optional(repeat($.keymap_flags)),
         $.keymap,
-        repeat($.criteria),
+        optional($.criteria),
         repeat1($._value),
       ),
     keymap: ($) =>
-      seq(optional(field("identifier", $.variable)), $.keymap_trigger),
+      seq(optional(field("identifier", $.identifier)), $.keymap_trigger),
     keymap_trigger: () => /[a-zA-Z0-9.+]+/,
     keymap_flags: () =>
       choice(
@@ -375,11 +341,12 @@ module.exports = grammar({
     mode_body: ($) => seq("{", repeat($._statement), "}"),
 
     // values //
-    variable: () => /\$[a-zA-Z0-9_]+/,
+    identifier: () => /\$[a-zA-Z0-9_]+[^\n]/,
     unit: ($) => choice($.px_unit, $.ppt_unit),
     px_unit: () => "px",
     ppt_unit: () => "ppt",
     number: () => /(\+|-)?\d+/,
+    _directions: () => choice("left", "right", "up", "down"),
     quoted_string: () =>
       token(seq('"', repeat(choice(/[^"\n]/, '\\"')), '"')),
 
@@ -388,7 +355,7 @@ module.exports = grammar({
         optional("\\"),
         choice(
           seq("mode", field("name", $.mode_name)),
-          field("identifier", $.variable),
+          field("identifier", $.identifier),
           field("unit", $.unit),
           $.border,
           $.exec,
@@ -397,14 +364,132 @@ module.exports = grammar({
         ),
         /\n/,
       ),
+
     value: () => /[^\s][^\n]+/,
 
     // i3 commands //
-    _i3_commands: ($) => choice("kill", "restart", $.sticky, $.focus),
+    _i3_commands: ($) =>
+      choice(
+        "kill",
+        "restart",
+        $.sticky,
+        $.focus,
+        $.split,
+        $.layout,
+        $.window_mode,
+        $.move,
+        $.swap,
+        $.workspace,
+      ),
 
-    focus: ($) => seq("focus", field("value", $.focus_value)),
-    focus_value: () => choice("left", "right", "up", "down"),
+    // workspace //
+    workspace: ($) => seq("workspace", $.workspace_value),
+    workspace_value: ($) =>
+      choice(
+        "back_and_forth",
+        $._workspace_assign_output,
+        $._workspace_switch,
+      ),
 
+    // switch workspace //
+    _workspace_switch: ($) =>
+      choice(
+        choice("next", "prev", "next_on_output", "prev_on_output"),
+        seq(
+          optional("--no-auto-back-and-forth"),
+          seq(optional("number"), $._workspace_id),
+        ),
+      ),
+
+    _workspace_assign_output: ($) =>
+      seq($._workspace_id, "output", $.value),
+
+    _workspace_id: ($) =>
+      choice($.number, field("identifier", $.identifier)),
+
+    // swap //
+    //NOTE: not working if its working
+    swap: ($) =>
+      seq(
+        "swap",
+        "container",
+        "with",
+        field("target", choice("id", "con_id", "mark")),
+        field("value", $.value),
+      ),
+
+    // move //
+      // move //
+    move: ($) =>
+      seq(
+        "move",
+        choice(
+          "scratchpad", // Directly move to the scratchpad
+          seq(
+            optional("--no-auto-back-and-forth"), // Optional flag to disable auto back-and-forth behavior
+            optional(choice("window", "container", "workspace")), // Specifies the target type to move
+            optional("to"), // Optional keyword "to" for grammatical structure
+            field("value", $.move_value), // Field capturing the move target value
+          ),
+        ),
+      ),
+    move_value: ($) =>
+      choice(
+        $._move_directional, // Matches directional moves (e.g., left, right, up, down)
+        $._move_center, // Matches "absolute position center" moves
+        $._move_position, // Matches moves to a specific position or mouse
+        $._move_output, // Matches moves to an output direction (e.g., "output left")
+        $._move_workspace // Matches moves to specific workspaces
+      ),
+    _move_directional: ($) => seq($._directions, optional($._move_amount)), // Directional moves with optional amount
+    _move_center: () => seq(optional("absolute"), "position center"), // Moves to the absolute center if specified
+    _move_position: ($) =>
+      seq("position", choice(repeat($._move_amount), "mouse")), // Moves to a position specified by amount or mouse
+    _move_output: ($) => seq("output", $._directions), // Matches moves to a specific output direction
+    _move_workspace: ($) =>
+      seq(
+        "workspace",
+        "number",
+        $.workspace_number // Matches workspace number (e.g., $ws1, $ws2)
+      ),
+    _move_amount: ($) => seq($.number, optional($.unit)), // Amount of movement specified by a number and optional unit
+    workspace_number: ($) => choice($.number, field("identifier", $.identifier)),
+
+
+    // fullscreen | floating //
+    window_mode: () => seq(choice("fullscreen", "floating"), "toggle"),
+
+    // layout //
+    layout: ($) => seq("layout", $.layout_value),
+    layout_value: ($) =>
+      choice(seq(optional("toggle"), repeat1($.layout_mode)), "default"),
+    layout_mode: () =>
+      choice("tabbed", "stacking", "split", "splitv", "splith", "all"),
+
+    // split //
+    split: ($) => seq("split", $.split_value),
+    split_value: () => choice("vertical", "horizontal", "toggle", "v", "h"),
+
+    // focus //
+    focus: ($) =>
+      seq("focus", optional($.criteria), field("value", $.focus_value)),
+    focus_value: ($) =>
+      choice(
+        $._focus_direction,
+        $._focus_workspace,
+        $._focus_output,
+        "parent",
+        "mode_toggle",
+      ),
+    _focus_direction: ($) => $._directions,
+    _focus_output: ($) => seq("output", repeat1($._output_value)),
+    _focus_workspace: ($) =>
+      seq(
+        "workspace",
+        choice($.number, field("identifier", $.identifier)),
+      ),
+
+    // sticky //
     sticky: ($) => seq("sticky", field("value", $.sticky_value)),
     sticky_value: () => choice("enable", "disable", "toggle"),
   },
