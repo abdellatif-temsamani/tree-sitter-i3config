@@ -7,6 +7,7 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
+// NOTE: stopped here https://i3wm.org/docs/userguide.html#vim_like_marks
 module.exports = grammar({
   name: "i3config",
 
@@ -341,7 +342,7 @@ module.exports = grammar({
     mode_body: ($) => seq("{", repeat($._statement), "}"),
 
     // values //
-    identifier: () => /\$[a-zA-Z0-9_]+[^\n]/,
+    identifier: () => /\$[a-zA-Z0-9_]+[^\n\s]/,
     unit: ($) => choice($.px_unit, $.ppt_unit),
     px_unit: () => "px",
     ppt_unit: () => "ppt",
@@ -380,6 +381,28 @@ module.exports = grammar({
         $.move,
         $.swap,
         $.workspace,
+        $.resize,
+      ),
+
+    // resize //
+    resize: ($) => seq("resize", $.resize_value),
+    resize_value: ($) => choice($._resize_grow_shrink, $._resize_set),
+    _resize_grow_shrink: ($) =>
+      seq(
+        choice("grow", "shrink"),
+        choice("width", "height"),
+        seq(
+          field("amout", seq($.number, $.px_unit)),
+          optional("or"),
+          seq(field("amout", seq($.number, $.ppt_unit))),
+        ),
+      ),
+    _resize_set: ($) =>
+      seq(
+        "set",
+        repeat1(
+          seq(optional(choice("height", "width")), $.number, $.unit),
+        ),
       ),
 
     // workspace //
@@ -400,12 +423,10 @@ module.exports = grammar({
           seq(optional("number"), $._workspace_id),
         ),
       ),
-
     _workspace_assign_output: ($) =>
       seq($._workspace_id, "output", $.value),
-
     _workspace_id: ($) =>
-      choice($.number, field("identifier", $.identifier)),
+      choice($.value, field("identifier", $.identifier)),
 
     // swap //
     //NOTE: not working if its working
@@ -419,7 +440,7 @@ module.exports = grammar({
       ),
 
     // move //
-      // move //
+    // move //
     move: ($) =>
       seq(
         "move",
@@ -439,7 +460,7 @@ module.exports = grammar({
         $._move_center, // Matches "absolute position center" moves
         $._move_position, // Matches moves to a specific position or mouse
         $._move_output, // Matches moves to an output direction (e.g., "output left")
-        $._move_workspace // Matches moves to specific workspaces
+        $._move_workspace, // Matches moves to specific workspaces
       ),
     _move_directional: ($) => seq($._directions, optional($._move_amount)), // Directional moves with optional amount
     _move_center: () => seq(optional("absolute"), "position center"), // Moves to the absolute center if specified
@@ -450,11 +471,11 @@ module.exports = grammar({
       seq(
         "workspace",
         "number",
-        $.workspace_number // Matches workspace number (e.g., $ws1, $ws2)
+        $.workspace_number, // Matches workspace number (e.g., $ws1, $ws2)
       ),
     _move_amount: ($) => seq($.number, optional($.unit)), // Amount of movement specified by a number and optional unit
-    workspace_number: ($) => choice($.number, field("identifier", $.identifier)),
-
+    workspace_number: ($) =>
+      choice($.value, field("identifier", $.identifier)),
 
     // fullscreen | floating //
     window_mode: () => seq(choice("fullscreen", "floating"), "toggle"),
@@ -472,7 +493,12 @@ module.exports = grammar({
 
     // focus //
     focus: ($) =>
-      seq("focus", optional($.criteria), field("value", $.focus_value)),
+      seq(
+        "focus",
+        optional(
+          seq(optional($.criteria), field("value", $.focus_value)),
+        ),
+      ),
     focus_value: ($) =>
       choice(
         $._focus_direction,

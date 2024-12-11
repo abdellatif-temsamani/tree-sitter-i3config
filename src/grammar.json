@@ -1560,7 +1560,7 @@
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "\\$[a-zA-Z0-9_]+[^\\n]"
+      "value": "\\$[a-zA-Z0-9_]+[^\\n\\s]"
     },
     "unit": {
       "type": "CHOICE",
@@ -1761,6 +1761,169 @@
         {
           "type": "SYMBOL",
           "name": "workspace"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "resize"
+        }
+      ]
+    },
+    "resize": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "resize"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "resize_value"
+        }
+      ]
+    },
+    "resize_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_resize_grow_shrink"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_resize_set"
+        }
+      ]
+    },
+    "_resize_grow_shrink": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "grow"
+            },
+            {
+              "type": "STRING",
+              "value": "shrink"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "width"
+            },
+            {
+              "type": "STRING",
+              "value": "height"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "amout",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "number"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "px_unit"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "or"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "amout",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "number"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "ppt_unit"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "_resize_set": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "set"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "CHOICE",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": "height"
+                      },
+                      {
+                        "type": "STRING",
+                        "value": "width"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "number"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "unit"
+              }
+            ]
+          }
         }
       ]
     },
@@ -1880,7 +2043,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "number"
+          "name": "value"
         },
         {
           "type": "FIELD",
@@ -2166,7 +2329,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "number"
+          "name": "value"
         },
         {
           "type": "FIELD",
@@ -2324,21 +2487,34 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "criteria"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "criteria"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "FIELD",
+                  "name": "value",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "focus_value"
+                  }
+                }
+              ]
             },
             {
               "type": "BLANK"
             }
           ]
-        },
-        {
-          "type": "FIELD",
-          "name": "value",
-          "content": {
-            "type": "SYMBOL",
-            "name": "focus_value"
-          }
         }
       ]
     },

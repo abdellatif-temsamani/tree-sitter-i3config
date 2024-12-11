@@ -47,7 +47,7 @@
       "required": false,
       "types": [
         {
-          "type": "number",
+          "type": "value",
           "named": true
         }
       ]
@@ -126,6 +126,10 @@
         },
         {
           "type": "move",
+          "named": true
+        },
+        {
+          "type": "resize",
           "named": true
         },
         {
@@ -334,7 +338,7 @@
     "fields": {
       "value": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "focus_value",
@@ -536,6 +540,10 @@
         },
         {
           "type": "move",
+          "named": true
+        },
+        {
+          "type": "resize",
           "named": true
         },
         {
@@ -1020,6 +1028,59 @@
     "type": "property",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "resize",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "resize_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "resize_value",
+    "named": true,
+    "fields": {
+      "amout": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "ppt_unit",
+            "named": true
+          },
+          {
+            "type": "px_unit",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "unit",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "set",
@@ -1556,7 +1617,7 @@
       "required": false,
       "types": [
         {
-          "type": "number",
+          "type": "value",
           "named": true
         }
       ]
@@ -1581,10 +1642,6 @@
       "multiple": true,
       "required": false,
       "types": [
-        {
-          "type": "number",
-          "named": true
-        },
         {
           "type": "value",
           "named": true
@@ -1813,7 +1870,15 @@
     "named": false
   },
   {
+    "type": "grow",
+    "named": false
+  },
+  {
     "type": "h",
+    "named": false
+  },
+  {
+    "type": "height",
     "named": false
   },
   {
@@ -1946,11 +2011,11 @@
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "off",
@@ -1958,6 +2023,10 @@
   },
   {
     "type": "on",
+    "named": false
+  },
+  {
+    "type": "or",
     "named": false
   },
   {
@@ -2021,6 +2090,10 @@
     "named": true
   },
   {
+    "type": "resize",
+    "named": false
+  },
+  {
     "type": "restart",
     "named": false
   },
@@ -2050,6 +2123,10 @@
   },
   {
     "type": "show_marks",
+    "named": false
+  },
+  {
+    "type": "shrink",
     "named": false
   },
   {
@@ -2146,6 +2223,10 @@
   },
   {
     "type": "vertical",
+    "named": false
+  },
+  {
+    "type": "width",
     "named": false
   },
   {
