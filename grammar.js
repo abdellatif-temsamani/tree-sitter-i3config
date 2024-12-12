@@ -154,7 +154,7 @@ module.exports = grammar({
     focus_follows_mouse: ($) =>
       seq(
         "focus_follows_mouse",
-        field("follow_mouse_value", $.focus_follows_mouse_value),
+        field("value", $.focus_follows_mouse_value),
       ),
     focus_follows_mouse_value: () => choice("yes", "no"),
 
@@ -208,7 +208,7 @@ module.exports = grammar({
     set_from_resource: ($) =>
       seq(
         "set_from_resource",
-        field("identifier", $.identifier),
+        field("definition", $.identifier),
         field("resource", $.set_resource),
         field("fallback", $.set_resource_fallback),
       ),
@@ -219,7 +219,7 @@ module.exports = grammar({
     set: ($) =>
       seq(
         /set[^_]/,
-        field("identifier", $.identifier),
+        field("definition", $.identifier),
         field("value", $.value),
       ),
 

@@ -387,7 +387,7 @@
     "type": "focus_follows_mouse",
     "named": true,
     "fields": {
-      "follow_mouse_value": {
+      "value": {
         "multiple": false,
         "required": true,
         "types": [
@@ -1129,7 +1129,7 @@
     "type": "set",
     "named": true,
     "fields": {
-      "identifier": {
+      "definition": {
         "multiple": false,
         "required": true,
         "types": [
@@ -1155,22 +1155,22 @@
     "type": "set_from_resource",
     "named": true,
     "fields": {
+      "definition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
       "fallback": {
         "multiple": false,
         "required": true,
         "types": [
           {
             "type": "set_resource_fallback",
-            "named": true
-          }
-        ]
-      },
-      "identifier": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
             "named": true
           }
         ]

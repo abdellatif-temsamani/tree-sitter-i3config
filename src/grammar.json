@@ -636,7 +636,7 @@
         },
         {
           "type": "FIELD",
-          "name": "follow_mouse_value",
+          "name": "value",
           "content": {
             "type": "SYMBOL",
             "name": "focus_follows_mouse_value"
@@ -900,7 +900,7 @@
         },
         {
           "type": "FIELD",
-          "name": "identifier",
+          "name": "definition",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
@@ -941,7 +941,7 @@
         },
         {
           "type": "FIELD",
-          "name": "identifier",
+          "name": "definition",
           "content": {
             "type": "SYMBOL",
             "name": "identifier"
