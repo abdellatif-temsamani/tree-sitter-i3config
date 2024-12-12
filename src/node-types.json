@@ -105,6 +105,10 @@
           "named": true
         },
         {
+          "type": "floating",
+          "named": true
+        },
+        {
           "type": "focus",
           "named": true
         },
@@ -282,6 +286,22 @@
     }
   },
   {
+    "type": "floating",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "floating_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "floating_modifier",
     "named": true,
     "fields": {
@@ -331,6 +351,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "floating_value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "focus",
@@ -448,18 +473,7 @@
   {
     "type": "font",
     "named": true,
-    "fields": {
-      "name": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "unit",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": true,
@@ -469,7 +483,26 @@
           "named": true
         },
         {
+          "type": "font_size",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "font_size",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "unit",
           "named": true
         }
       ]
@@ -524,6 +557,10 @@
         },
         {
           "type": "exec",
+          "named": true
+        },
+        {
+          "type": "floating",
           "named": true
         },
         {
@@ -626,10 +663,6 @@
       "types": [
         {
           "type": "gaps_option",
-          "named": true
-        },
-        {
-          "type": "px_unit",
           "named": true
         }
       ]
@@ -936,6 +969,11 @@
     }
   },
   {
+    "type": "mode_name",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "mouse_warping",
     "named": true,
     "fields": {},
@@ -944,11 +982,16 @@
       "required": true,
       "types": [
         {
-          "type": "value",
+          "type": "mouse_warping_value",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "mouse_warping_value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "move",
@@ -1048,7 +1091,7 @@
     "type": "resize_value",
     "named": true,
     "fields": {
-      "amout": {
+      "amount": {
         "multiple": true,
         "required": false,
         "types": [
@@ -1057,12 +1100,12 @@
             "named": true
           },
           {
-            "type": "ppt_unit",
-            "named": true
+            "type": "ppt",
+            "named": false
           },
           {
-            "type": "px_unit",
-            "named": true
+            "type": "px",
+            "named": false
           }
         ]
       }
@@ -1447,12 +1490,7 @@
     }
   },
   {
-    "type": "tiling_drag_modifier",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "tiling_drag_swap",
+    "type": "tiling_drag_value",
     "named": true,
     "fields": {
       "identifier": {
@@ -1472,25 +1510,6 @@
       "types": [
         {
           "type": "value",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "tiling_drag_value",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "tiling_drag_modifier",
-          "named": true
-        },
-        {
-          "type": "tiling_drag_swap",
           "named": true
         }
       ]
@@ -1520,21 +1539,7 @@
   {
     "type": "unit",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "ppt_unit",
-          "named": true
-        },
-        {
-          "type": "px_unit",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "window_mode",
@@ -1650,6 +1655,10 @@
     }
   },
   {
+    "type": "\"",
+    "named": false
+  },
+  {
     "type": "--border",
     "named": false
   },
@@ -1674,6 +1683,10 @@
     "named": false
   },
   {
+    "type": ".",
+    "named": false
+  },
+  {
     "type": "=",
     "named": false
   },
@@ -1683,6 +1696,10 @@
   },
   {
     "type": "\\",
+    "named": false
+  },
+  {
+    "type": "\\\"",
     "named": false
   },
   {
@@ -1738,7 +1755,7 @@
     "named": false
   },
   {
-    "type": "client.",
+    "type": "client",
     "named": false
   },
   {
@@ -1954,10 +1971,6 @@
     "named": false
   },
   {
-    "type": "mode_name",
-    "named": true
-  },
-  {
     "type": "mode_toggle",
     "named": false
   },
@@ -2066,8 +2079,8 @@
     "named": false
   },
   {
-    "type": "ppt_unit",
-    "named": true
+    "type": "ppt",
+    "named": false
   },
   {
     "type": "prev",
@@ -2082,8 +2095,8 @@
     "named": false
   },
   {
-    "type": "px_unit",
-    "named": true
+    "type": "px",
+    "named": false
   },
   {
     "type": "quoted_string",

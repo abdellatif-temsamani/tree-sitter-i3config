@@ -73,24 +73,21 @@ module.exports = grammar({
         "gaps",
         repeat1($.gaps_option),
         field("value", $.number),
-        optional($.px_unit),
+        optional($._px_unit),
       ),
     gaps_option: () =>
       choice(
         "outer",
         "inner",
-
         "horizontal",
         "vertical",
         "top",
         "left",
         "bottom",
         "right",
-
         "plus",
         "minus",
         "set",
-
         "all",
         "current",
       ),
@@ -98,14 +95,17 @@ module.exports = grammar({
     // tiling_drag //
     tiling_drag: ($) => seq("tiling_drag", $.tiling_drag_value),
     tiling_drag_value: ($) =>
-      choice("off", $.tiling_drag_swap, $.tiling_drag_modifier),
-    tiling_drag_swap: ($) =>
+      choice(
+        "off",
+        $._tiling_drag_swap,
+        repeat1($._tiling_drag_modifier),
+      ),
+    _tiling_drag_swap: ($) =>
       seq(
         "swap_modifier",
         choice(field("identifier", $.identifier), $.value),
       ),
-    tiling_drag_modifier: () =>
-      seq(choice("modifier", "titlebar"), choice("modifier", "titlebar")),
+    _tiling_drag_modifier: () => choice("modifier", "titlebar"),
 
     // show_marks //
     show_marks: ($) => seq("show_marks", $.show_marks_value),
@@ -147,7 +147,8 @@ module.exports = grammar({
       choice("smart", "ignore", "leave_fullscreen", "all"),
 
     // mouse_warping  //
-    mouse_warping: ($) => seq("mouse_warping", $.value),
+    mouse_warping: ($) => seq("mouse_warping", $.mouse_warping_value),
+    mouse_warping_value: ($) => choice("none", $._output_value),
 
     //focus_follows_mouse //
     focus_follows_mouse: ($) =>
@@ -159,10 +160,12 @@ module.exports = grammar({
 
     // ipc-socket //
     ipc_socket: ($) => seq("ipc-socket", $.value),
+
     // client //
     client: ($) =>
       seq(
-        "client.",
+        "client",
+        ".",
         field("property", $.property),
         repeat(field("identifier", $.identifier)),
       ),
@@ -196,14 +199,7 @@ module.exports = grammar({
       ),
     assign_workspace: ($) => seq(optional("number"), $._workspace_id),
     assign_output: ($) => seq("output", $._output_value),
-    _output_value: ($) =>
-      choice(
-        $._directions,
-        "primary",
-        "nonprimary",
-        "primary",
-        "nonprimary",
-      ),
+    _output_value: ($) => choice($._directions, "primary", "nonprimary"),
 
     // definitions //
     _definition: ($) => choice($.set, $.set_from_resource),
@@ -314,22 +310,15 @@ module.exports = grammar({
     keymap_flags: () =>
       choice(
         "--release",
-        "--release",
         "--border",
         "--whole-window",
         "--exclude-titlebar",
       ),
 
     // font //
-    font: ($) =>
-      seq(
-        "font",
-        $.font_name,
-        optional($.number),
-        optional(field("name", $.unit)),
-      ),
+    font: ($) => seq("font", $.font_name, $.font_size),
     font_name: () => /[^\s][^\d][^\n]+\ /,
-    font_size: () => /\d+(ppt|px)[^\s\n]/,
+    font_size: ($) => seq($.number, $.unit),
 
     // mode //
     mode: ($) =>
@@ -338,14 +327,14 @@ module.exports = grammar({
         field("name", $.mode_name), // Mark the mode being defined
         field("body", $.mode_body),
       ),
-    mode_name: () => /"([^"][^\n]+)?"/,
+    mode_name: () => seq('"', repeat(choice(/[^"\n]/, '\\"')), '"'),
     mode_body: ($) => seq("{", repeat($._statement), "}"),
 
     // values //
     identifier: () => /\$[a-zA-Z0-9_]+[^\n\s]/,
-    unit: ($) => choice($.px_unit, $.ppt_unit),
-    px_unit: () => "px",
-    ppt_unit: () => "ppt",
+    unit: ($) => choice($._px_unit, $._ppt_unit),
+    _px_unit: () => "px",
+    _ppt_unit: () => "ppt",
     number: () => /(\+|-)?\d+/,
     _directions: () => choice("left", "right", "up", "down"),
     quoted_string: () =>
@@ -382,6 +371,7 @@ module.exports = grammar({
         $.swap,
         $.workspace,
         $.resize,
+        $.floating,
       ),
 
     // resize //
@@ -392,9 +382,9 @@ module.exports = grammar({
         choice("grow", "shrink"),
         choice("width", "height"),
         seq(
-          field("amout", seq($.number, $.px_unit)),
+          field("amount", seq($.number, $._px_unit)),
           optional("or"),
-          seq(field("amout", seq($.number, $.ppt_unit))),
+          seq(field("amount", seq($.number, $._ppt_unit))),
         ),
       ),
     _resize_set: ($) =>
@@ -429,7 +419,6 @@ module.exports = grammar({
       choice($.value, field("identifier", $.identifier)),
 
     // swap //
-    //NOTE: not working if its working
     swap: ($) =>
       seq(
         "swap",
@@ -439,7 +428,6 @@ module.exports = grammar({
         field("value", $.value),
       ),
 
-    // move //
     // move //
     move: ($) =>
       seq(
@@ -478,7 +466,7 @@ module.exports = grammar({
       choice($.value, field("identifier", $.identifier)),
 
     // fullscreen | floating //
-    window_mode: () => seq(choice("fullscreen", "floating"), "toggle"),
+    window_mode: () => seq("fullscreen", "toggle"),
 
     // layout //
     layout: ($) => seq("layout", $.layout_value),
@@ -514,6 +502,13 @@ module.exports = grammar({
         "workspace",
         choice($.number, field("identifier", $.identifier)),
       ),
+
+    // floating //
+    floating: ($) => seq("floating", field("value", $.floating_value)),
+    floating_value: () => choice("enable", "disable", "toggle"),
+
+    // scratchpad //
+    scratchpad: () => seq("scratchpad", "show"),
 
     // sticky //
     sticky: ($) => seq("sticky", field("value", $.sticky_value)),

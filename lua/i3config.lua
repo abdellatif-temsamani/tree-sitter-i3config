@@ -16,7 +16,6 @@ function M.debugging()
     local autocmd = vim.api.nvim_create_autocmd
     local autogroup = vim.api.nvim_create_augroup
     local group = autogroup("I3CONFIG", { clear = true })
-
     autocmd("BufReadPost",
         {
             group = group,
@@ -26,7 +25,6 @@ function M.debugging()
                 vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-w>h", true, false, true), "n", false)
             end
         })
-
     autocmd("BufWritePost",
         {
             group = group,
@@ -43,7 +41,18 @@ function M.debugging()
         })
 end
 
-function M.setup()
+---@class defaults
+---@field debugging? boolean
+local defaults = {
+    debugging = false,
+}
+
+---@param opts defaults
+function M.setup(opts)
+    opts = opts or defaults
+    if opts.debugging then
+        M.debugging()
+    end
     M.start()
 end
 

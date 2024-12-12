@@ -262,7 +262,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "px_unit"
+              "name": "_px_unit"
             },
             {
               "type": "BLANK"
@@ -350,15 +350,18 @@
         },
         {
           "type": "SYMBOL",
-          "name": "tiling_drag_swap"
+          "name": "_tiling_drag_swap"
         },
         {
-          "type": "SYMBOL",
-          "name": "tiling_drag_modifier"
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_tiling_drag_modifier"
+          }
         }
       ]
     },
-    "tiling_drag_swap": {
+    "_tiling_drag_swap": {
       "type": "SEQ",
       "members": [
         {
@@ -384,34 +387,16 @@
         }
       ]
     },
-    "tiling_drag_modifier": {
-      "type": "SEQ",
+    "_tiling_drag_modifier": {
+      "type": "CHOICE",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "modifier"
-            },
-            {
-              "type": "STRING",
-              "value": "titlebar"
-            }
-          ]
+          "type": "STRING",
+          "value": "modifier"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "modifier"
-            },
-            {
-              "type": "STRING",
-              "value": "titlebar"
-            }
-          ]
+          "type": "STRING",
+          "value": "titlebar"
         }
       ]
     },
@@ -625,7 +610,20 @@
         },
         {
           "type": "SYMBOL",
-          "name": "value"
+          "name": "mouse_warping_value"
+        }
+      ]
+    },
+    "mouse_warping_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "none"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_output_value"
         }
       ]
     },
@@ -677,7 +675,11 @@
       "members": [
         {
           "type": "STRING",
-          "value": "client."
+          "value": "client"
+        },
+        {
+          "type": "STRING",
+          "value": "."
         },
         {
           "type": "FIELD",
@@ -865,14 +867,6 @@
         {
           "type": "SYMBOL",
           "name": "_directions"
-        },
-        {
-          "type": "STRING",
-          "value": "primary"
-        },
-        {
-          "type": "STRING",
-          "value": "nonprimary"
         },
         {
           "type": "STRING",
@@ -1444,10 +1438,6 @@
         },
         {
           "type": "STRING",
-          "value": "--release"
-        },
-        {
-          "type": "STRING",
           "value": "--border"
         },
         {
@@ -1472,32 +1462,8 @@
           "name": "font_name"
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "number"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "name",
-              "content": {
-                "type": "SYMBOL",
-                "name": "unit"
-              }
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "SYMBOL",
+          "name": "font_size"
         }
       ]
     },
@@ -1506,8 +1472,17 @@
       "value": "[^\\s][^\\d][^\\n]+\\ "
     },
     "font_size": {
-      "type": "PATTERN",
-      "value": "\\d+(ppt|px)[^\\s\\n]"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "unit"
+        }
+      ]
     },
     "mode": {
       "type": "SEQ",
@@ -1535,8 +1510,33 @@
       ]
     },
     "mode_name": {
-      "type": "PATTERN",
-      "value": "\"([^\"][^\\n]+)?\""
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[^\"\\n]"
+              },
+              {
+                "type": "STRING",
+                "value": "\\\""
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
     },
     "mode_body": {
       "type": "SEQ",
@@ -1567,19 +1567,19 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "px_unit"
+          "name": "_px_unit"
         },
         {
           "type": "SYMBOL",
-          "name": "ppt_unit"
+          "name": "_ppt_unit"
         }
       ]
     },
-    "px_unit": {
+    "_px_unit": {
       "type": "STRING",
       "value": "px"
     },
-    "ppt_unit": {
+    "_ppt_unit": {
       "type": "STRING",
       "value": "ppt"
     },
@@ -1765,6 +1765,10 @@
         {
           "type": "SYMBOL",
           "name": "resize"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "floating"
         }
       ]
     },
@@ -1828,7 +1832,7 @@
           "members": [
             {
               "type": "FIELD",
-              "name": "amout",
+              "name": "amount",
               "content": {
                 "type": "SEQ",
                 "members": [
@@ -1838,7 +1842,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "px_unit"
+                    "name": "_px_unit"
                   }
                 ]
               }
@@ -1860,7 +1864,7 @@
               "members": [
                 {
                   "type": "FIELD",
-                  "name": "amout",
+                  "name": "amount",
                   "content": {
                     "type": "SEQ",
                     "members": [
@@ -1870,7 +1874,7 @@
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "ppt_unit"
+                        "name": "_ppt_unit"
                       }
                     ]
                   }
@@ -2345,17 +2349,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "fullscreen"
-            },
-            {
-              "type": "STRING",
-              "value": "floating"
-            }
-          ]
+          "type": "STRING",
+          "value": "fullscreen"
         },
         {
           "type": "STRING",
@@ -2586,6 +2581,53 @@
               }
             }
           ]
+        }
+      ]
+    },
+    "floating": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "floating"
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "floating_value"
+          }
+        }
+      ]
+    },
+    "floating_value": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "enable"
+        },
+        {
+          "type": "STRING",
+          "value": "disable"
+        },
+        {
+          "type": "STRING",
+          "value": "toggle"
+        }
+      ]
+    },
+    "scratchpad": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "scratchpad"
+        },
+        {
+          "type": "STRING",
+          "value": "show"
         }
       ]
     },
