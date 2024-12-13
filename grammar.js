@@ -338,7 +338,16 @@ module.exports = grammar({
     number: () => /(\+|-)?\d+/,
     _directions: () => choice("left", "right", "up", "down"),
     quoted_string: () =>
-      token(seq('"', repeat(choice(/[^"\n]/, '\\"')), '"')),
+      seq(
+        '"',
+        repeat(
+          choice(
+            /[^"\\]/, // Any character except a double quote or backslash
+            /\\./, // Escaped characters (e.g., \" or \n)
+          ),
+        ),
+        '"',
+      ),
 
     _value: ($) =>
       seq(
@@ -372,6 +381,7 @@ module.exports = grammar({
         $.workspace,
         $.resize,
         $.floating,
+        $.scratchpad,
       ),
 
     // resize //

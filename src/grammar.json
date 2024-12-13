@@ -1609,36 +1609,33 @@
       ]
     },
     "quoted_string": {
-      "type": "TOKEN",
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "\""
-          },
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "PATTERN",
-                  "value": "[^\"\\n]"
-                },
-                {
-                  "type": "STRING",
-                  "value": "\\\""
-                }
-              ]
-            }
-          },
-          {
-            "type": "STRING",
-            "value": "\""
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[^\"\\\\]"
+              },
+              {
+                "type": "PATTERN",
+                "value": "\\\\."
+              }
+            ]
           }
-        ]
-      }
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
     },
     "_value": {
       "type": "SEQ",
@@ -1769,6 +1766,10 @@
         {
           "type": "SYMBOL",
           "name": "floating"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "scratchpad"
         }
       ]
     },

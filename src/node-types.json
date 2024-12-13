@@ -137,6 +137,10 @@
           "named": true
         },
         {
+          "type": "scratchpad",
+          "named": true
+        },
+        {
           "type": "split",
           "named": true
         },
@@ -581,6 +585,10 @@
         },
         {
           "type": "resize",
+          "named": true
+        },
+        {
+          "type": "scratchpad",
           "named": true
         },
         {
@@ -1073,6 +1081,11 @@
     "fields": {}
   },
   {
+    "type": "quoted_string",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "resize",
     "named": true,
     "fields": {},
@@ -1124,6 +1137,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "scratchpad",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "set",
@@ -2024,11 +2042,11 @@
   },
   {
     "type": "number",
-    "named": false
+    "named": true
   },
   {
     "type": "number",
-    "named": true
+    "named": false
   },
   {
     "type": "off",
@@ -2099,10 +2117,6 @@
     "named": false
   },
   {
-    "type": "quoted_string",
-    "named": true
-  },
-  {
     "type": "resize",
     "named": false
   },
@@ -2133,6 +2147,10 @@
   {
     "type": "set_resource_fallback",
     "named": true
+  },
+  {
+    "type": "show",
+    "named": false
   },
   {
     "type": "show_marks",

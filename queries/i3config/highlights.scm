@@ -1,7 +1,10 @@
 (comment) @comment @spell
 
 (identifier) @variable
-identifier: (identifier) @variable.parameter
+
+definition: (identifier) @variable.parameter
+
+resource: (set_resource) @keyword.type
 
 (number) @number
 
@@ -22,6 +25,8 @@ identifier: (identifier) @variable.parameter
   "]"
 ] @punctuation.bracket
 
+"." @punctuation
+
 [
   "="
   "or"
@@ -36,7 +41,7 @@ identifier: (identifier) @variable.parameter
   "no"
 ] @boolean
 
-"none" @none
+"none" @constant
 
 [
   "smart_borders"
@@ -44,6 +49,8 @@ identifier: (identifier) @variable.parameter
   "tiling_drag"
   "smart_gaps"
   "gaps"
+  "exec"
+  "exec_always"
   "focus_on_window_activation"
   "force_display_urgency_hint"
   "workspace_auto_back_and_forth"
@@ -73,6 +80,8 @@ identifier: (identifier) @variable.parameter
   "focus_wrapping"
 ] @constant.builtin
 
+
+"--no-startup-id" @argument
 (gaps_option) @constant
 
 (property) @property
